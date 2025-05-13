@@ -10,16 +10,16 @@ public class Main {
         boolean running = true;
 
         // Sample Products
-        products.put(1, new Product(1, "Dell Inspiron 15", 1, 10, 800.0, 2));
-        products.put(2, new Product(2, "Sony WH-1000XM4", 2, 20, 350.0, 5));
+        products.put(1, new Product(1, "Dell Inspiron 15", 1, 10, 800.0));
+        products.put(2, new Product(2, "Asus Rog Strix", 2, 20, 350.0));
 
         // Sample Customers
-        customers.add(new Customer(1, "John Doe", "1234567890", "john@example.com", "123 Elm Street"));
-        customers.add(new Customer(2, "Jane Smith", "0987654321", "jane@example.com", "456 Oak Street"));
+        customers.add(new Customer(1, "Mayank Srivastava", "7814678945", "mayank@gmail.com", "123 Punjab"));
+        customers.add(new Customer(2, "Lakshay", "9578415845", "lakshay@gmail.com", "45 Kalka"));
 
         // Sample Suppliers
-        suppliers.add(new Supplier(1, "TechSupply Co.", "555-1234", "techsupply@example.com", "789 Tech Road"));
-        suppliers.add(new Supplier(2, "Gizmo Distributors", "555-5678", "gizmo@example.com", "321 Gadget Ave"));
+        suppliers.add(new Supplier(1, "FastSolutions", "9879516567", "fastsolutions@gmail.com", "789 Haryana"));
+        suppliers.add(new Supplier(2, "Speedster Distributors", "4684977845", "Speedsters@gmail.com", "321 Chandigarh"));
 
         while (running) {
             System.out.println("=== Inventory Management ===");
@@ -31,7 +31,8 @@ public class Main {
             System.out.println("6. Delete Customer");
             System.out.println("7. Add Supplier");
             System.out.println("8. Delete Supplier");
-            System.out.println("9. Exit");
+            System.out.println("9. Search Product by ID");
+            System.out.println("10. Exit");
             System.out.print("Choose: ");
             int choice = sc.nextInt();
 
@@ -40,7 +41,7 @@ public class Main {
                     // Add Product
                     System.out.print("Enter Product ID: ");
                     int pid = sc.nextInt();
-                    sc.nextLine(); // Consume newline
+                    sc.nextLine();
                     System.out.print("Name: ");
                     String name = sc.nextLine();
                     System.out.print("Category ID: ");
@@ -49,9 +50,7 @@ public class Main {
                     int qty = sc.nextInt();
                     System.out.print("Price: ");
                     double price = sc.nextDouble();
-                    System.out.print("Reorder Level: ");
-                    int reorder = sc.nextInt();
-                    products.put(pid, new Product(pid, name, cid, qty, price, reorder));
+                    products.put(pid, new Product(pid, name, cid, qty, price));
                     System.out.println("Product added successfully!");
                     break;
 
@@ -166,9 +165,24 @@ public class Main {
                     suppliers.removeIf(supplier -> supplier.getSupplierID() == deleteSupID);
                     System.out.println("Supplier deleted successfully!");
                     break;
-
+                
                 case 9:
-                    // Exit
+                    System.out.print("Enter Product ID to search: ");
+                    int searchID = sc.nextInt();
+                    List<Product> searchList = new ArrayList<>(products.values());
+                    quickSort(searchList, 0, searchList.size() - 1); // Ensure list is sorted
+                    Product foundProduct = binarySearch(searchList, searchID);
+                    if (foundProduct != null) {
+                        System.out.println("Product found: ID: " + foundProduct.getProductID() +
+                           ", Name: " + foundProduct.getName() +
+                           ", Stock: " + foundProduct.getQuantityInStock() +
+                           ", Price: " + foundProduct.getUnitPrice());
+                    } else {
+                        System.out.println("Product with ID " + searchID + " not found.");
+                    }
+                    break;
+
+                case 10:
                     running = false;
                     System.out.println("Exiting...");
                     break;

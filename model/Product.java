@@ -6,15 +6,13 @@ public class Product {
     private int categoryID;
     private int quantityInStock;
     private double unitPrice;
-    private int reorderLevel;
 
-    public Product(int productID, String name, int categoryID, int quantityInStock, double unitPrice, int reorderLevel) {
+    public Product(int productID, String name, int categoryID, int quantityInStock, double unitPrice) {
         this.productID = productID;
         this.name = name;
         this.categoryID = categoryID;
         this.quantityInStock = quantityInStock;
         this.unitPrice = unitPrice;
-        this.reorderLevel = reorderLevel;
     }
 
     public int getProductID() {
@@ -38,10 +36,6 @@ public class Product {
 
     public double getUnitPrice() {
         return unitPrice;
-    }
-
-    public int getReorderLevel() {
-        return reorderLevel;
     }
 
     public void increaseStock(int quantity) {
